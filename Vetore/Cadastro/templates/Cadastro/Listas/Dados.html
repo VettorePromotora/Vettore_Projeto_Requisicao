@@ -1,0 +1,48 @@
+{% extends 'paginas/modelo.html' %}
+{% load static %}
+
+{% block titulo %}
+<title>Produto</title>
+{% endblock %}
+
+{% block conteudo %}
+
+<hr>
+<div class="row">
+    <div class="col-md-10 mx-auto mt-4">
+        <h3 class="mt-4">{{ titulo }}:</h3>
+    </div>
+    <div class="col-md-2 mx-auto mt-4">
+        <a href="{% url 'cadastrar-dados' %}" class="btn btn-primary btn-sm mt-4">Adicionar arquivo</a>
+    </div>
+
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>ID</th>
+            <th>ARQUIVO</th>
+            <th>OPÇÕES</th>
+        </tr>
+
+        {% for object in objects_list %}
+        <tr>
+            <td>{{ object.pk }}</td>
+            <td><a href="{{ object.arquivo.url }}">Ver</a></td>
+
+            <td>
+                <a href="{% url 'editar-dados' object.pk %}" class="btn btn-warning btn-sm" title="Editar">E</a>
+                <a href="{% url 'excluir-dados' object.pk %}" class="btn btn-danger btn-sm" title="Excluir">X</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">Nenhum campo registrado.</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,27 @@
+{% extends 'paginas/modelo.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block titulo%}
+<title>Cadastro</title>
+{% endblock %}
+
+
+{% block conteudo %}
+<div class="row">
+    <h3 class="mt-4">{{ titulo }}</h3>
+    <hr>
+    <div class="col-xl-4 mx-auto mt-4">
+        <form action="" method="post" >
+            {% csrf_token %}
+
+            {{ form|crispy }}
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary mt-4 btn-block">{{ botao }}</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+{% endblock %}
