@@ -6,6 +6,8 @@ from django.urls import reverse_lazy
 
 from .models import Perfil
 
+""" Implementando classes para o método de CREATE """
+
 
 class UsuarioCreate(CreateView):
     template_name = 'Cadastro/formulario.html'
@@ -32,6 +34,9 @@ class UsuarioCreate(CreateView):
         return context
 
 
+""" Implementando classes para o método de UPDATE """
+
+
 class PerfilUpdate(UpdateView):
     template_name = 'Cadastro/formulario.html'
     model = Perfil
@@ -48,3 +53,5 @@ class PerfilUpdate(UpdateView):
         context['botao'] = 'Atualizar'
 
         return context
+
+

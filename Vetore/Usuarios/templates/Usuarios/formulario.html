@@ -22,3 +22,16 @@
 </div>
 
 {% endblock %}
+
+{% block scripts %}
+
+<script src="{% static 'js/jquery.mask.min.js' %}"></script>
+<script>
+    alert("Importação OK!");
+    $(document).read(function(){
+        $("#id_cpf").mask("000.000.000-00");
+        $("#id_telefone").mask("(00) 0 0000-0000)");
+    });
+
+</script>
+{% endblock %}

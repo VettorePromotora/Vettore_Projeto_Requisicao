@@ -14,19 +14,30 @@
     <div class="col-md-8 mx-auto mt-4">
         <div class="alert alert-danger">
 
-            Deseja excluir dos registros <strong>{{ object }}</strong>?
-        <hr>
+                Deseja excluir dos registros <strong>{{ object }}</strong>?
+            <hr>
 
-        <form action="" method="post">
-            {% csrf_token %}
+            <form action="" method="post">
+                {% csrf_token %}
 
-            {{ form|crispy }}
-            <a href="{% url 'listar-produtos' %}" class="btn btn-primary mt-4"> Cancelar </a>
-            <button type="submit" class="btn btn-danger mt-4">Confirmar</button>
-        </form>
+                {{ form|crispy }}
 
+                <a href="" onclick="goBack()" class="btn btn-primary mt-4">Cancelar</a>
+                <button type="submit" class="btn btn-danger mt-4">Confirmar</button>
+            </form>
+        </div>
     </div>
-
 </div>
 
 {% endblock %}
+
+{% block scripts%}
+<script>
+    function goBack() {
+        window.history.back()
+    }
+</script>
+{% endblock %}
+<!--<body>-->
+<!--<button onclick="goBack()">Go Back</button>-->
+<!--</body>-->

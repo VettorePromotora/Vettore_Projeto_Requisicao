@@ -1,6 +1,6 @@
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
-from .models import Local, Produtos, Categoria, Dados
+from .models import Local, Produtos, Categoria, Dados, Solicitacao
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from braces.views import GroupRequiredMixin
@@ -27,7 +27,7 @@ class CategoriaCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
 
 class LocalCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
-    group_required = u"Matriz"
+    group_required = [u"Matriz"]
     model = Local
     fields = ['nome', 'descricao']
     template_name = 'Cadastro/formulario.html'
@@ -85,6 +85,28 @@ class DadosCreate(LoginRequiredMixin, CreateView):
         context = super().get_context_data(*args, **kwargs)
         context['botao'] = 'cadastrar'
         return context
+
+
+class SolicitarCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy('login')
+    group_required = [u"Matriz", u"Filial"]
+    model = Solicitacao
+    fields = ['quantidade_solicita', 'observacao_solicita',
+              'produto_solicita', 'destino', 'categoria']
+    template_name = 'Cadastro/formulario.html'
+    success_url = reverse_lazy('listar-solicitacao')
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+
+        context['titulo'] = 'Solicitação de materiais'
+        context['botao'] = 'Solicitar'
+        return context
+
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user
+        url = super().form_valid(form)
+        return url
 
 
 """ Implementando classes para o método de UPDATE """
@@ -156,6 +178,22 @@ class ProdutosUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
         return context
 
 
+class SolicitacaoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
+    login_url = reverse_lazy('login')
+    group_required = [u"Matriz", u"Filial"]
+    model = Solicitacao
+    fields = ['quantidade_solicita', 'observacao_solicita',
+              'produto_solicita', 'destino', 'categoria']
+    template_name = 'Cadastro/formulario.html'
+    success_url = reverse_lazy('listar-solicitacao')
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+
+        context['titulo'] = 'Solicitação de materiais'
+        context['botao'] = 'Salvar'
+
+
 """ Implementando classes para o método de DELETE """
 
 
@@ -200,7 +238,7 @@ class LocalDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
 
 class ProdutosDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     login_url = reverse_lazy('login')
-    group_required = [u"Matriz", u"Filial"]
+    group_required = [u"Matriz"]
     model = Produtos
     template_name = 'Cadastro/Exclusao.html'
     success_url = reverse_lazy('listar-produtos')
@@ -209,6 +247,20 @@ class ProdutosDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
         context = super().get_context_data(*args, **kwargs)
 
         context['titulo'] = 'Excluir produto'
+        return context
+
+
+class SolicitacaoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
+    login_url = reverse_lazy('login')
+    group_required = [u"Matriz", u"Filial"]
+    model = Solicitacao
+    template_name = 'Cadastro/Exclusao.html'
+    success_url = reverse_lazy('listar-solicitacao')
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+
+        context['titulo'] = 'Excluir arquivo'
         return context
 
 
@@ -270,3 +322,16 @@ class ProdutosList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     # def get_queryset(self):
     #     self.object_list = Produtos.objects.filter(usuario=self.request.user)
     #     return self.object_list
+
+
+class SolicitacaoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
+    login_url = reverse_lazy('login')
+    group_required = [u"Matriz", u"Filial"]
+    model = Solicitacao
+    template_name = 'Cadastro/Listas/Solicitacao.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+
+        context['titulo'] = 'Listar solicitações'
+        return context

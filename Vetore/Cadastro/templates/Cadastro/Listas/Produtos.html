@@ -34,7 +34,7 @@
         <tr>
             <td>{{ produto.cod_produto }}</td>
             <td>{{ produto.nome }}</td>
-            <td>{{ produto.categoria }}</td>
+            <td>{{ produto.categoria_f_m }}</td>
             <td>{{ produto.est_inic }}</td>
             <td>{{ produto.est_min }}</td>
             <td>{{ produto.descricao }}</td>
@@ -52,6 +52,15 @@
         {% endfor %}
     </table>
 </div>
+</div>
 
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function(){
+        alert("Importação OK!");
+    });
+</script>
 {% endblock %}
 

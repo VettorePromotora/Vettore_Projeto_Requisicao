@@ -29,12 +29,19 @@ class Local(models.Model):
 
 
 class Produtos(models.Model):
+    Medidas = (
+        ('un', 'Unidade'),
+        ('cm', 'Centimetros'),
+        ('mm', 'Milimetros'),
+        ('m', 'Metros')
+    )
+
     """ Cadastro de Atividades """
     nome = models.CharField(verbose_name='Produto', max_length=50, default='-')
     est_inic = models.IntegerField(verbose_name='Estoque Inicial', default=0)
     est_min = models.IntegerField(verbose_name='Estoque Mínimo', default=0)
     descricao = models.TextField(verbose_name='Descrição', max_length=150, blank=True, null=True)
-    unid_medida = models.DecimalField(verbose_name='Unidade de Medida', max_digits=6, decimal_places=2, default=0000.00)
+    unid_medida = models.CharField(verbose_name='Unidade de Medida', choices=Medidas, max_length=2, null=True)
     cod_produto = models.CharField(verbose_name='CÓD', max_length=120, unique=True, default='-')
 
     categoria_f_m = models.ForeignKey(Categoria, on_delete=models.PROTECT, verbose_name='Categoria')
@@ -76,3 +83,20 @@ class Dados(models.Model):
 
     def __str__(self):
         return 'nome: {}'.format(self.arquivo)
+
+
+class Solicitacao(models.Model):
+    quantidade_solicita = models.DecimalField(max_digits=6, decimal_places=2, verbose_name="Quantidade", null=True)
+    observacao_solicita = models.TextField(verbose_name="Obs", null=True)
+    produto_solicita = models.ForeignKey(Produtos, on_delete=models.PROTECT, verbose_name='Produto', null=True)
+    destino = models.ForeignKey(Local, on_delete=models.PROTECT, verbose_name='Destino', null=True)
+    categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT, verbose_name='Categoria', null=True)
+
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user  # models.ForeignKey(User, on_delete=models.PROTECT)
+        url = super(Solicitacao, self).form_valid(form)
+        return url
+
+    def __str__(self):
+        return '{} {} de {} para {} ({})'.format(self.quantidade_solicita, self.produto_solicita, self.categoria,
+                                                 self.destino, self.observacao_solicita)
