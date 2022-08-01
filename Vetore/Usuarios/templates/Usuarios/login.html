@@ -6,9 +6,12 @@
 <title>Login</title>
 {% endblock %}
 
+{% block menu %}
+{% endblock %}
+
 {% block conteudo %}
 <div class="row">
-    <div class="col-md-8 mx-auto">
+    <div class="col-md-4 mx-auto">
         {% if request.user.is_authenticated %}
         <h3>Ação não permitida</h3>
         <hr>
@@ -20,13 +23,15 @@
 
     <h3>Autenticação</h3>
     <hr>
-    <div class="col-md-4 mx-auto">
+    <div class="col-sm-4 mx-auto">
 
 
         <form action="" method="post">
             {% csrf_token %}
+            <div class="form-control mt-4">
+                {{ form|crispy }}
+            </div>
 
-            {{ form|crispy }}
             <button type="submit" class="btn btn-primary mt-4">Entrar</button>
         </form>
 

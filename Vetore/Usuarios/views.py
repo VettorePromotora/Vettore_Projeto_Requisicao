@@ -1,4 +1,4 @@
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.models import User, Group
 from django.shortcuts import get_object_or_404
 from .forms import UsuarioForm
@@ -38,7 +38,7 @@ class UsuarioCreate(CreateView):
 
 
 class PerfilUpdate(UpdateView):
-    template_name = 'Cadastro/formulario.html'
+    template_name = "{% url Cadastro 'Cadastro/formulario.html' %}"
     model = Perfil
     fields = ['nome_completo', 'cpf', 'telefone']
     success_url = reverse_lazy('index')
@@ -54,4 +54,16 @@ class PerfilUpdate(UpdateView):
 
         return context
 
+
+class PerfilDelete(DeleteView):
+    login_url = reverse_lazy('login')
+    group_required = [u"Matriz"]
+    template_name = 'Cadastro/Exclusao.html'
+    success_url = reverse_lazy('usuario')
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+
+        context['titulo'] = 'Excluir usuario'
+        return context
 

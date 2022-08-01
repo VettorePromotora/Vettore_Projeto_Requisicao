@@ -11,3 +11,4 @@ class IndexView(TemplateView):
 class SobreView(TemplateView):
     """ Rota para a página Sobre """
     template_name = 'Paginas/sobre.html'
+

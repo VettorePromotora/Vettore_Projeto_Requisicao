@@ -13,16 +13,16 @@ urlpatterns = [
    path('Cadastrar/dados/', DadosCreate.as_view(), name='cadastrar-dados'),
    path('cadastrar/solicitacao/', SolicitarCreate.as_view(), name='cadastrar-solicitacao'),
 
-   path('editar/categoria/', CategoriaUpdate.as_view(), name='editar-categoria'),
+   path('editar/categoria/<int:pk>', CategoriaUpdate.as_view(), name='editar-categoria'),
    path('editar/local/<int:pk>', LocalUpdate.as_view(), name='editar-local'),
    path('editar/produtos/<int:pk>', ProdutosUpdate.as_view(), name='editar-produtos'),
-   path('editar/dados/', DadosUpdate.as_view(), name='editar-dados'),
+   path('editar/dados/<int:pk>', DadosUpdate.as_view(), name='editar-dados'),
    path('editar/solicitacao/<int:pk>', SolicitacaoUpdate.as_view(), name='editar-solicitacao'),
 
-   path('excluir/categoria/', CategoriaDelete.as_view(), name='excluir-categoria'),
+   path('excluir/categoria/<int:pk>', CategoriaDelete.as_view(), name='excluir-categoria'),
    path('excluir/local/<int:pk>', LocalDelete.as_view(), name='excluir-local'),
    path('excluir/produtos/<int:pk>', ProdutosDelete.as_view(), name='excluir-produtos'),
-   path('excluir/dados/', DadosDelete.as_view(), name='excluir-dados'),
+   path('excluir/dados/<int:pk>', DadosDelete.as_view(), name='excluir-dados'),
    path('excluir/solicitacao/<int:pk>', SolicitacaoDelete.as_view(), name='excluir-solicitacao'),
 
    path('listar/categoria', CategoriaList.as_view(), name='listar-categoria'),

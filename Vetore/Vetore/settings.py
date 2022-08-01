@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
+
 # crispy_forms
 CRISPY_TAMPLATE_PACK = 'bootstrap5'
 
@@ -45,6 +47,7 @@ INSTALLED_APPS = [
     'Usuarios.apps.UsuariosConfig',
     'django_cleanup.apps.CleanupConfig',
     'crispy_forms',
+    'fontawesome',
 ]
 
 MIDDLEWARE = [
