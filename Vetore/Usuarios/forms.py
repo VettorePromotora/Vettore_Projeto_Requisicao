@@ -9,10 +9,19 @@ from django.forms import ModelForm
 
 class UsuarioForm(UserCreationForm):
     email = forms.EmailField(max_length=100)
+    username = forms.CharField()
+    usuario = forms.CharField()
+    password1 = forms.PasswordInput()
+    password2 = forms.PasswordInput()
+
+    username.widget.attrs.update({'class': 'form-control'})
+    usuario.widget.attrs.update({'class': 'form-control'})
+    email.widget.attrs.update({'class': 'form-control'})
+
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['username', 'email', 'password1', 'password2', 'usuario']
 
         # def __init__(self, *args, **kwargs):
         #     super().__init__(*args, **kwargs)
@@ -27,9 +36,18 @@ class UsuarioForm(UserCreationForm):
         #                                 )
 
 
-class PerfilForm(forms.ModelForm):
-    required_css_class = 'riquired-field'
-    name = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control"}))
+class CommentForm(forms.Form):
+    email = forms.EmailField(max_length=100)
+    username = forms.CharField()
+    password1 = forms.PasswordInput()
+    password2 = forms.PasswordInput()
+    usuario = forms.CharField()
+
+    username.widget.attrs.update({'class': 'form-control'})
+    email.widget.attrs.update({'class': 'form-control'})
+    usuario.widget.attrs.update({'class': 'form-control'})
+
+
 
 
 
