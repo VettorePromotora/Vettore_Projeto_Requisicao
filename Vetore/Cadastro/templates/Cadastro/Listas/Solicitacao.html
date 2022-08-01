@@ -26,7 +26,7 @@
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
 <!--                        <h6 class="m-0 font-weight-bold text-primary">{{ titulo }}</h6>-->
-                        <a href="{% url 'cadastrar-produtos' %}" class="btn btn-primary btn-sm mt-4">
+                        <a href="{% url 'cadastrar-solicitacao' %}" class="btn btn-primary btn-sm mt-4">
                             <i class="fas fa-plus"></i>
                             Nova Solicitação
                         </a>
@@ -36,6 +36,7 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
+                                        <th>Status</th>
                                         <th>Categoria</th>
                                         <th>Produto</th>
                                         <th>Quantidade</th>
@@ -48,6 +49,7 @@
                                     {% for solicita in solicitacao_list %}
                                     <tr>
 
+                                        <td>{{ solicita.status }}</td>
                                         <td>{{ solicita.categoria }}</td>
                                         <td>{{ solicita.produto_solicita }}</td>
                                         <td>{{ solicita.quantidade_solicita }}</td>
@@ -57,19 +59,19 @@
                                         <td>
                                         {% if solicita.criado_por == request.user %}
                                             <a href="{% url 'editar-solicitacao' solicita.pk %}" class="btn btn-warning btn-sm" title="Editar">
-                                                <i class="fa-solid fa-pencil"></i>
+                                                <i class="fas fa-pencil-alt"></i>
                                             </a>
 
                                             <a href="{% url 'excluir-solicitacao' solicita.pk %}" class="btn btn-danger btn-sm" title="Excluir">
-                                                <i class="fa-solid fa-trash-can"></i>
+                                                <i class="fas fa-trash-alt"></i>
                                             </a>
                                         {% else %}
                                             <a href="{% url 'editar-solicitacao' solicita.pk %}" class="btn btn-success btn-sm" title="Aceitar">
-                                                <i class="fa-solid fa-pencil"></i>
+                                                <i class="fas fa-check"></i>
                                             </a>
 
                                             <a href="{% url 'excluir-solicitacao' solicita.pk %}" class="btn btn-danger btn-sm" title="Negar">
-                                                <i class="fa-solid fa-trash-can"></i>
+                                                <i class="fas fa-times"></i>
                                             </a>
                                         {% endif %}
                                     </td>
@@ -86,13 +88,7 @@
                     </div>
                 </div>
             </div>
-            <!-- /.container-fluid -->
-
         </div>
-        <!-- End of Main Content -->
     </div>
-    <!-- End of Content Wrapper -->
 </div>
-<!-- End of Page Wrapper -->
-
 {% endblock %}

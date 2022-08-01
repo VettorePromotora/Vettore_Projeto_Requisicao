@@ -9,31 +9,22 @@ from django.forms import ModelForm
 
 class UsuarioForm(UserCreationForm):
     email = forms.EmailField(max_length=100)
-    username = forms.CharField()
-    usuario = forms.CharField()
-    password1 = forms.PasswordInput()
-    password2 = forms.PasswordInput()
-
-    username.widget.attrs.update({'class': 'form-control'})
-    usuario.widget.attrs.update({'class': 'form-control'})
-    email.widget.attrs.update({'class': 'form-control'})
-
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2', 'usuario']
+        fields = ['username', 'email', 'password1', 'password2']
 
-        # def __init__(self, *args, **kwargs):
-        #     super().__init__(*args, **kwargs)
-        #     self.helper = FormHelper(UsuarioForm)
-        #     self.helper.layout = Layout(Fieldset(
-        #                                             Div('username', css_class="form-control"),
-        #                                             Div('email', css_class="form-control"),
-        #                                             Div('password1', css_class="form-control"),
-        #                                             Div('password2', css_class="form-control"),
-        #                                             Submit('submit', 'Submit', css_class='button white'),
-        #                                         )
-        #                                 )
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.helper = FormHelper(UsuarioForm)
+            self.helper.layout = Layout(Fieldset(
+                                                    Div('username', css_class="form-control"),
+                                                    Div('email', css_class="form-control"),
+                                                    Div('password1', css_class="form-control"),
+                                                    Div('password2', css_class="form-control"),
+                                                    Submit('submit', 'Submit', css_class='button white'),
+                                                )
+                                        )
 
 
 class CommentForm(forms.Form):
