@@ -3,9 +3,13 @@ from django.urls import path
 
 
 from .views import LocalCreate, ProdutosCreate, CategoriaCreate, DadosCreate, SolicitarCreate
+
 from .views import LocalUpdate, ProdutosUpdate, CategoriaUpdate, DadosUpdate, SolicitacaoUpdate, SolicitacaoAdminUpdate
+
 from .views import LocalDelete, ProdutosDelete, CategoriaDelete, DadosDelete, SolicitacaoDelete
-from .views import LocalList, ProdutosList, CategoriaList, DadosList, SolicitacaoList, SolicitacaoAdminList, SolicitacaoAceitaList
+
+from .views import LocalList, ProdutosList, CategoriaList, DadosList, SolicitacaoList, SolicitacaoAdminList, \
+   SolicitacaoAceitaList, AceitarSolicitacaoUpdate
 
 
 urlpatterns = [
@@ -21,6 +25,7 @@ urlpatterns = [
    path('editar/dados/<int:pk>', DadosUpdate.as_view(), name='editar-dados'),
    path('editar/solicitacao/<int:pk>', SolicitacaoUpdate.as_view(), name='editar-solicitacao'),
    path('editar/solicitacaoadmin/<int:pk>', SolicitacaoAdminUpdate.as_view(), name='editar-solicitacaoadmin'),
+   path('editar/aceitarsolicitacao/<int:pk>', AceitarSolicitacaoUpdate.as_view(), name='aceitar-solicitacao'),
 
    path('excluir/categoria/<int:pk>', CategoriaDelete.as_view(), name='excluir-categoria'),
    path('excluir/local/<int:pk>', LocalDelete.as_view(), name='excluir-local'),

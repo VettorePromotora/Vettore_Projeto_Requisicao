@@ -56,11 +56,11 @@
                                             <td>{{ solicita.observacao_solicita }}</td>
 
                                                 <td>
-                                                    <a href="editar-solicitacaopendente" class="btn btn-success btn-sm" title="Aceitar">
+                                                    <a href="{% url 'aceitar-solicitacao' solicita.pk %}" class="btn btn-success btn-sm" title="Aceitar">
                                                         <i class="fas fa-check"></i>
                                                     </a>
 
-                                                    <a href="{% url 'excluir-solicitacao' solicita.pk %}" class="btn btn-danger btn-sm" title="Negar">
+                                                    <a href="#" class="btn btn-danger btn-sm" title="Negar">
                                                         <i class="fas fa-times"></i>
                                                     </a>
                                                 {% endif %}

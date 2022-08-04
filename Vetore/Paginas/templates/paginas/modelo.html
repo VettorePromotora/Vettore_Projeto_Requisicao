@@ -36,8 +36,8 @@
 
             <!-- Barra lateral - Marca -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'index' %}">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                <div class="sidebar-brand-icon ">
+                    <img src="{% static 'img/LOGO DOURADO PNG.png' %}" style="whidth:60px; height:48px">
                 </div>
                 <div class="sidebar-brand-text mx-3">Vettore <sup>PROMOTORA</sup></div>
             </a>
@@ -116,7 +116,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Telas de login:</h6>
                         <a class="collapse-item" href="{% url 'login' %}">Login</a>
-                        <a class="collapse-item" href="{% url 'registrar' %}">Registro</a>
+                        <a class="collapse-item" href="{% url 'registrar' %}">Cadastro</a>
                         <a class="collapse-item" href="Paginas/templates/paginas/forgot-password.html">Esqueceu a senha</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Outras Páginas:</h6>

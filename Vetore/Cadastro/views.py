@@ -1,5 +1,7 @@
 from django.contrib.messages.views import SuccessMessageMixin
 from django.template.context_processors import request
+from django.http import HttpRequest
+from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from .models import Local, Produtos, Categoria, Dados, Solicitacao
@@ -216,6 +218,23 @@ class SolicitacaoAdminUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView)
         return context
 
 
+class AceitarSolicitacaoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
+    login_url = reverse_lazy('login')
+    group_required = [u"Matriz"]
+    model = Solicitacao
+    fields = ['status']
+
+    template_name = 'Cadastro/Listas/aceitarsolicitacao.html'
+    success_url = reverse_lazy('listar-solicitacaoadmin')
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+
+        context['titulo'] = 'Aceitar Solicitação'
+        context['botao'] = 'Salvar'
+        return context
+
+
 """ Implementando classes para o método de DELETE """
 
 
@@ -383,3 +402,7 @@ class SolicitacaoAceitaList(GroupRequiredMixin, LoginRequiredMixin, ListView):
 
         context['titulo'] = 'solicitações aceitas'
         return context
+
+
+
+

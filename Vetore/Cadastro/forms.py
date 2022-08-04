@@ -1,5 +1,11 @@
-from django import forms
-from .models import Solicitacao, Status, Dados, Produtos
+from django.forms import ModelForm
+from .models import Produtos
+
+
+class PostForm(ModelForm):
+    class Meta:
+        model = Produtos
+        fields = {'status'}
 
 
 
