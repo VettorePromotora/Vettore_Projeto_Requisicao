@@ -57,11 +57,11 @@
                                         <td>{{ produto.unid_medida }}</td>
 
                                         <td>
-                                            <a href="{% url 'editar-produtos' produto.pk %}" class="btn btn-warning btn-sm" title="Editar">
+                                            <a href="#" id=" aceitar" class="btn btn-warning btn-sm" title="Aceitar">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </a>
 
-                                            <a href="{% url 'excluir-produtos' produto.pk %}" class="btn btn-danger btn-sm" title="Excluir">
+                                            <a href="{% url 'excluir-produtos' produto.pk %}" class="btn btn-danger btn-sm" title="Negar">
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
                                         </td>

@@ -27,16 +27,16 @@ class UsuarioForm(UserCreationForm):
                                         )
 
 
-class CommentForm(forms.Form):
-    email = forms.EmailField(max_length=100)
-    username = forms.CharField()
-    password1 = forms.PasswordInput()
-    password2 = forms.PasswordInput()
-    usuario = forms.CharField()
-
-    username.widget.attrs.update({'class': 'form-control'})
-    email.widget.attrs.update({'class': 'form-control'})
-    usuario.widget.attrs.update({'class': 'form-control'})
+# class CommentForm(forms.Form):
+#     email = forms.EmailField(max_length=100)
+#     username = forms.CharField()
+#     password1 = forms.PasswordInput()
+#     password2 = forms.PasswordInput()
+#     usuario = forms.CharField()
+#
+#     username.widget.attrs.update({'class': 'form-control'})
+#     email.widget.attrs.update({'class': 'form-control'})
+#     usuario.widget.attrs.update({'class': 'form-control'})
 
 
 

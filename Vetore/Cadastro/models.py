@@ -89,6 +89,8 @@ class Solicitacao(models.Model):
     status = models.CharField(verbose_name="Status", max_length=11, default="Pendente",)
     quantidade_solicita = models.DecimalField(max_digits=6, decimal_places=2, verbose_name="Quantidade", null=True)
     observacao_solicita = models.TextField(verbose_name="Obs", null=True)
+
+    #  ForeingKeys
     produto_solicita = models.ForeignKey(Produtos, on_delete=models.PROTECT, verbose_name='Produto', null=True)
     criado_por = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     destino = models.ForeignKey(Local, on_delete=models.PROTECT, verbose_name='Destino', null=True)
@@ -100,5 +102,6 @@ class Solicitacao(models.Model):
         return url
 
     def __str__(self):
-        return '{} {} de {} para {} {} ({})'.format(self.quantidade_solicita, self.produto_solicita, self.categoria,
-                                                 self.destino, self.observacao_solicita, self.status)
+        return '{} {} de {} para {} {} ({} {})'.format(self.quantidade_solicita, self.produto_solicita, self.categoria,
+                                                    self.destino, self.observacao_solicita, self.status, self.criado_por)
+

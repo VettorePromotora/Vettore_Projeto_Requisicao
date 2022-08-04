@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'fontawesome',
+    'rolepermissions',
 ]
 
 MIDDLEWARE = [
@@ -146,3 +147,5 @@ LOGIN_URL = 'login'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+ROLEPERMISSIONS_MODULE = 'Vetore.roles'

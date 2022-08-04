@@ -1,9 +1,11 @@
 """ Modulo para cadastros """
 from django.urls import path
+
+
 from .views import LocalCreate, ProdutosCreate, CategoriaCreate, DadosCreate, SolicitarCreate
-from .views import LocalUpdate, ProdutosUpdate, CategoriaUpdate, DadosUpdate, SolicitacaoUpdate
+from .views import LocalUpdate, ProdutosUpdate, CategoriaUpdate, DadosUpdate, SolicitacaoUpdate, SolicitacaoAdminUpdate
 from .views import LocalDelete, ProdutosDelete, CategoriaDelete, DadosDelete, SolicitacaoDelete
-from .views import LocalList, ProdutosList, CategoriaList, DadosList, SolicitacaoList
+from .views import LocalList, ProdutosList, CategoriaList, DadosList, SolicitacaoList, SolicitacaoAdminList, SolicitacaoAceitaList
 
 
 urlpatterns = [
@@ -18,6 +20,7 @@ urlpatterns = [
    path('editar/produtos/<int:pk>', ProdutosUpdate.as_view(), name='editar-produtos'),
    path('editar/dados/<int:pk>', DadosUpdate.as_view(), name='editar-dados'),
    path('editar/solicitacao/<int:pk>', SolicitacaoUpdate.as_view(), name='editar-solicitacao'),
+   path('editar/solicitacaoadmin/<int:pk>', SolicitacaoAdminUpdate.as_view(), name='editar-solicitacaoadmin'),
 
    path('excluir/categoria/<int:pk>', CategoriaDelete.as_view(), name='excluir-categoria'),
    path('excluir/local/<int:pk>', LocalDelete.as_view(), name='excluir-local'),
@@ -30,5 +33,7 @@ urlpatterns = [
    path('listar/produtos/', ProdutosList.as_view(), name='listar-produtos'),
    path('listar/dados/', DadosList.as_view(), name='listar-dados'),
    path('listar/solicitacao/', SolicitacaoList.as_view(), name='listar-solicitacao'),
+   path('listar/solicitacaoadmin/', SolicitacaoAdminList.as_view(), name='listar-solicitacaoadmin'),
+   path('listar/solicitacaoaceita/', SolicitacaoAceitaList.as_view(), name='listar-solicitacaoaceita'),
 
    ]

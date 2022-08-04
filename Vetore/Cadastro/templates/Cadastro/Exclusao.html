@@ -22,7 +22,7 @@
 
                 {{ form|crispy }}
 
-                <a href="" onclick="goBack()" class="btn btn-primary mt-4">Cancelar</a>
+                <a href="{% url 'listar-solicitacao' %}" class="btn btn-primary mt-4">Cancelar</a>
                 <button type="submit" class="btn btn-danger mt-4">Confirmar</button>
             </form>
         </div>

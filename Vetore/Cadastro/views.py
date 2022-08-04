@@ -1,3 +1,5 @@
+from django.contrib.messages.views import SuccessMessageMixin
+from django.template.context_processors import request
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from .models import Local, Produtos, Categoria, Dados, Solicitacao
@@ -5,7 +7,9 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from braces.views import GroupRequiredMixin
 from django.shortcuts import get_object_or_404
+
 from django.contrib import messages
+# messages.add_message(request, messages.INFO, 'Hello world.')
 
 """ Implementando classes para o método de CREATE """
 
@@ -182,8 +186,8 @@ class SolicitacaoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy('login')
     group_required = [u"Matriz", u"Filial"]
     model = Solicitacao
-    fields = ['quantidade_solicita', 'observacao_solicita',
-              'produto_solicita', 'destino', 'categoria']
+    fields = ['quantidade_solicita', 'observacao_solicita', 'produto_solicita', 'destino', 'categoria']
+
     template_name = 'Cadastro/formulario.html'
     success_url = reverse_lazy('listar-solicitacao')
 
@@ -192,6 +196,24 @@ class SolicitacaoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
 
         context['titulo'] = 'Solicitação de materiais'
         context['botao'] = 'Salvar'
+        return context
+
+
+class SolicitacaoAdminUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
+    login_url = reverse_lazy('login')
+    group_required = [u"Matriz", u"Filial"]
+    model = Solicitacao
+    fields = ['quantidade_solicita', 'observacao_solicita', 'produto_solicita', 'destino', 'categoria']
+
+    template_name = 'Cadastro/formulario.html'
+    success_url = reverse_lazy('listar-solicitacaoadmin')
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+
+        context['titulo'] = 'Solicitação de materiais'
+        context['botao'] = 'Salvar'
+        return context
 
 
 """ Implementando classes para o método de DELETE """
@@ -241,11 +263,11 @@ class ProdutosDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     group_required = [u"Matriz"]
     model = Produtos
     template_name = 'Cadastro/Exclusao.html'
+
     success_url = reverse_lazy('listar-produtos')
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-
         context['titulo'] = 'Excluir produto'
         return context
 
@@ -334,4 +356,30 @@ class SolicitacaoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
         context = super().get_context_data(*args, **kwargs)
 
         context['titulo'] = 'Listar solicitações'
+        return context
+
+
+class SolicitacaoAdminList(GroupRequiredMixin, LoginRequiredMixin, ListView):
+    login_url = reverse_lazy('login')
+    group_required = [u"Matriz"]
+    model = Solicitacao
+    template_name = 'Cadastro/Listas/Solicitacao_admin.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+
+        context['titulo'] = 'solicitações pendentes'
+        return context
+
+
+class SolicitacaoAceitaList(GroupRequiredMixin, LoginRequiredMixin, ListView):
+    login_url = reverse_lazy('login')
+    group_required = [u"Matriz", u"Filial"]
+    model = Solicitacao
+    template_name = 'Cadastro/Listas/Solicitacao_aceita.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+
+        context['titulo'] = 'solicitações aceitas'
         return context
