@@ -1,0 +1,52 @@
+{% extends 'paginas/modelo.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block titulo%}
+<title>Cadastrar Produto</title>
+{% endblock %}
+
+{% block conteudo %}
+<div class="col-xl-5 mx-auto mt-4">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h2 align="center" class="mt-4">{{ titulo }}</h2>
+                <p align="center">
+                    Atenção ao salvar, pois este registro não poderá ser cancelado.
+                </p>
+        </div>
+        <div class="card-body">
+            <form action="" method="post" >
+                <div id="dados">
+                       {% csrf_token %}
+
+                        {{ form|crispy }}
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary mt-4 btn-block">{{ botao }}</button>
+                    <a href="{% url 'listar-solicitacao' %}" class="btn btn-danger mt-1" style="whidth:100%">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+
+        var form = document.getElementById("id_status");
+        var dados = document.getElementById("dados");
+        $(dados).hide();
+        console.log(form.value);
+
+        function setTipo(){
+            form.value = "Aceito"
+            console.log(form.value)
+            }
+
+        setTipo("Aceito")
+
+    </script>
+{% endblock %}

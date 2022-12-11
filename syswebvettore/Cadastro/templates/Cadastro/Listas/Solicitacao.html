@@ -1,0 +1,121 @@
+{% extends 'paginas/modelo.html' %}
+{% load static %}
+
+{% block titulo %}
+<title>Solicitação</title>
+{% endblock %}
+
+{% block conteudo %}
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <p class="mb-4">
+                        Área para adicionar informações instrutivas.
+                    </p>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <a href="{% url 'cadastrar-solicitacao' %}" class="btn btn-primary btn-sm mt-4">
+                                <i class="fas fa-plus"></i>
+                                Nova Solicitação
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead align="center">
+                                        <tr>
+                                            <th>Status</th>
+                                            <th>Data</th>
+                                            <th>Categoria</th>
+                                            <th>Produto</th>
+                                            <th>Quantidade</th>
+                                            <th>Destino</th>
+                                            <th>Observação</th>
+                                            <th>Opção</th>
+                                        </tr>
+
+                                        {% for solicita in solicitacao_list %}
+                                        {# if solicita.criado_por == request.user #}
+
+                                        <tr>
+
+                                            <td>
+                                                {% if solicita.status == "Pendente" %}
+                                                    <span class="badge badge-warning">{{ solicita.status }}</span>
+                                                {% elif solicita.status == "Aceito" %}
+                                                    <span class="badge badge-success">{{ solicita.status }}</span>
+                                                {% elif solicita.status == "Retirado" %}
+                                                    <span class="badge badge-primary">{{ solicita.status }}</span>
+                                                {% else %}
+                                                    <span class="badge badge-danger">{{ solicita.status }}</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ solicita.data }}</td>
+                                            <td>{{ solicita.categoria }}</td>
+                                            <td>{{ solicita.produto_solicita }}</td>
+                                            <td>{{ solicita.quantidade_solicita }}</td>
+                                            <td>{{ solicita.destino }}</td>
+                                            <td>{{ solicita.observacao_solicita }}</td>
+                                            <td>
+                                                {% if solicita.status != "Pendente" %}
+                                                    <a href="{% url 'editar-solicitacao' solicita.pk %}" class="btn btn-dark btn-sm disabled" title="Editar">
+                                                        <i class="fas fa-pencil-alt"></i>
+                                                    </a>
+
+                                                    <a href="{% url 'excluir-solicitacao' solicita.pk %}" id="excluindo" class="btn btn-dark btn-sm disabled" title="Excluir">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </a>
+                                                {% else %}
+                                                    <a href="{% url 'editar-solicitacao' solicita.pk %}" class="btn btn-warning btn-sm" title="Editar">
+                                                        <i class="fas fa-pencil-alt"></i>
+                                                    </a>
+
+                                                    <a href="{% url 'excluir-solicitacao' solicita.pk %}" id="excluindo" class="btn btn-danger btn-sm" title="Excluir">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </a>
+                                                {% endif %}
+                                            </td>
+                                            {# endif #}
+                                        </tr>
+                                        {% empty %}
+
+                                        <tr>
+                                            <td colspan="6">Nenhum local registrado.</td>
+                                        </tr>
+
+                                        {% endfor %}
+
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'js/jquery.mask.min.js' %}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{% static 'js/utils/notificacao.js' %}"></script>
+
+    <script>
+
+    </script>
+{% endblock %}

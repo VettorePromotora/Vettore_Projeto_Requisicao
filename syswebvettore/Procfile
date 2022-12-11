@@ -1,0 +1,1 @@
+web: gunicorn Vetore.wsgi --log-file -

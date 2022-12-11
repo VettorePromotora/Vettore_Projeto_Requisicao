@@ -1,0 +1,108 @@
+{% extends 'paginas/modelo.html' %}
+{% load static %}
+
+{% block titulo %}
+<title>Solicitação</title>
+{% endblock %}
+
+{% block conteudo %}
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <p class="mb-4">Área restrita apenas para o gestor.</p>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h4 class="h3 mb-1 text-gray-800">Solicitações pendentes</h4>
+                            <h6 class="h6 mb-1 text-gray-800">Essas solicitações precisão ser aceitas para poderem ser processadas</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-warning" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Status</th>
+                                            <th>Categoria</th>
+                                            <th>Produto</th>
+                                            <th>Quantidade</th>
+                                            <th>Destino</th>
+                                            <th>Observação</th>
+                                            <th>Opção</th>
+                                        </tr>
+
+                                        {% for solicita in solicitacao_list %}
+                                        {% if solicita.status == "Pendente" %}
+                                        {% if solicita.criado_por != request.user %}
+
+                                        <tr>
+
+                                            <td>{{ solicita.status }}</td>
+                                            <td>{{ solicita.categoria }}</td>
+                                            <td>{{ solicita.produto_solicita }}</td>
+                                            <td>{{ solicita.quantidade_solicita }}</td>
+                                            <td>{{ solicita.destino }}</td>
+                                            <td>{{ solicita.observacao_solicita }}</td>
+
+                                                <td>
+                                                    <a href="{% url 'aceitar-solicitacao' solicita.pk %}" class="btn btn-success btn-sm" title="Aceitar">
+                                                        <i class="fas fa-check"></i>
+                                                    </a>
+
+                                                    <a href="{% url 'negar-solicitacao' solicita.pk %}" class="btn btn-danger btn-sm" title="Negar">
+                                                        <i class="fas fa-times"></i>
+                                                    </a>
+                                                {% endif %}
+
+                                            {% if solicita.criado_por == request.user %}
+
+                                                {% endif %}
+                                            </td>
+                                            {% endif %}
+                                        </tr>
+                                        {% empty %}
+
+                                        <tr>
+                                            <td colspan="6">Nenhum local registrado.</td>
+                                        </tr>
+
+                                        {% endfor %}
+
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'js/jquery.mask.min.js' %}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{% static 'js/utils/notificacao.js' %}"></script>
+
+    <script>
+        const notificarSituacao = () => document.getElementById('excluindo')
+            .classList.add(
+                notificacaoSwal(document.title, "Solicitação rejeitada com sucesso", "success", "OK")
+            )
+
+        document.getElementById("excluindo")
+          .addEventListener("click", notificarSituacao)
+    </script>
+{% endblock %}

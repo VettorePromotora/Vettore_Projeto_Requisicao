@@ -1,0 +1,117 @@
+{% extends 'paginas/modelo.html' %}
+{% load static %}
+
+
+{% block titulo %}
+<title>Produto</title>
+{% endblock %}
+
+{% block conteudo %}
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <p class="mb-2">
+                    <strong>ATENÇÃO</strong>
+                    <p class="text-success mb-0">&nbsp;&nbsp;&nbsp;&nbsp; Estoque acima do estoque minimo.</p>
+                    <p class="text-danger mb-4">&nbsp;&nbsp;&nbsp;&nbsp; Estoque abaixo do estoque minimo.</p>
+                    {{ request.user.groups.all.perms }}
+
+
+                </p>
+
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+<!--                        <h6 class="m-0 font-weight-bold text-primary">{{ titulo }}</h6>-->
+                        <a href="{% url 'cadastrar-produtos' %}" class="btn btn-primary btn-sm mt-4">
+                            <i class="fas fa-plus"></i>
+                            Adicionar Produto
+                        </a>
+
+                        <a href="{% url 'exportar-dados' %}" class="btn btn-light btn-sm mt-4">
+                            <i class="fa fa-file-export"></i>
+                            Exportar
+                        </a>
+
+
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-sm" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr align="center" class="table-dark">
+                                        <th>LOCAL</th>
+                                        <th>COD</th>
+                                        <th>NOME</th>
+                                        <th>CATEGORIA</th>
+                                        <th>E. INICIAL</th>
+                                        <th>E. MINIMO</th>
+                                        <th>OBS</th>
+                                        <th>UN</th>
+                                        <th>ESTOQUE ATUAL</th>
+                                    </tr>
+                                    {% for produto in produtos_list %}
+                                        <tr align="center">
+                                            <td>{{ produto.estoque_local }}</td>
+                                            <td>{{ produto.cod_produto }}</td>
+                                            <td>{{ produto.nome }}</td>
+                                            <td>{{ produto.categoria_f_m }}</td>
+                                            <td>{{ produto.est_inic }}</td>
+                                            <td>{{ produto.est_min }}</td>
+                                            <td>{{ produto.descricao }}</td>
+                                            <td>{{ produto.unid_medida }}</td>
+
+                                            {% if produto.est_min >= produto.estoque_atl %}
+                                                <td style="color:#f4735d">
+                                                    <strong>{{ produto.estoque_atl }}</strong>
+                                                </td>
+                                            {% elif produto.est_min == produto.estoque_atl %}
+                                                <td style="color:#fbf68d">
+                                                    <strong>{{ produto.estoque_atl }}</strong>
+                                                </td>
+                                            {% else %}
+                                                <td style="color:#71c06c">
+                                                    <strong>{{ produto.estoque_atl }}</strong>
+                                                </td>
+                                            {% endif %}
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="9">Nenhum campo registrado.</td>
+                                    </tr>
+
+                                    {% endfor %}
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+</div>
+<!-- End of Page Wrapper -->
+
+{% endblock %}
+
+{% block scripts %}
+    <script>
+
+    </script>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends 'paginas/modelo.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block titulo%}
+<title>{{ titulo }}</title>
+{% endblock %}
+
+{% block conteudo %}
+<div class="col-xl-6 mx-auto mt-4" id="cenario">
+    <div class="card shadow mb-4" id="formulariogeral">
+        <div class="card-header py-3">
+            <h2 align="center" class="mt-4">{{ titulo }}</h2>
+                <p align="center">
+                    Atenção ao alterar os dados registrados.
+                </p>
+        </div>
+        <div class="card-body">
+            <form action="" method="post" >
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col">
+                        {{ form.produto_solicita|as_crispy_field }}
+                    </div>
+
+                    <div class="col-auto">
+                        {{ form.quantidade_solicita|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ form.destino|as_crispy_field }}
+                    </div>
+
+                    <div class="col-auto">
+                        {{ form.categoria|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                        {{ form.observacao_solicita|as_crispy_field }}
+                    </div>
+
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary mt-4 btn-block">{{ botao }}</button>
+                    <a href="#" onclick="history.go(-1)" class="btn btn-danger mt-1" style="whidth:100%">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block scripts%}
+    <script>
+        $("#formulario").click(()=>{
+            $("#formulariogeral").clone().appendTo($("#cenario"))
+        })
+
+        function goBack(){
+            document.EventListener('click'){
+                window.history.back()
+            }
+        }
+    </script>
+{% endblock %}
+

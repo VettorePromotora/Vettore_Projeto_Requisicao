@@ -1,0 +1,62 @@
+{% extends 'paginas/modelo.html' %}
+{% load static %}
+
+{% block conteudo %}
+  <div id="wrapper">
+
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+
+          <!-- Main Content -->
+          <div id="content">
+
+              <!-- Begin Page Content -->
+              <div class="container-fluid">
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h2 align="center">Estoque {{ titulo }}</h2>
+                      <p align="center">Histórico</p>
+                      <span class="pull-left">
+                        <a href="{% url url_add %}" class="btn btn-primary btn-sm mt-2">
+                            <span class="fa fa-plus"></span> Adicionar
+                        </a>
+                      </span>
+                  </div>
+
+                  {% if object_list %}
+                    <div class="card-body">
+                      <div class="table-responsive">
+                          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" align="center">
+                              <thead>
+                                  <tr>
+                                  <th>Item</th>
+                                  <th>COD</th>
+                                  <th>Data</th>
+                                  <th>Nome</th>
+                                </tr>
+
+                              {% for object in object_list %}
+
+                                      <tr>
+                                      <td>
+                                        <a href="{% url 'estoque:estoque_detail' object.pk %}">{{ object }}</a>
+                                      </td>
+                                      <td>{{ object.nf_formated }}</td>
+                                      <td>{{ object.created }}</td>
+                                      <td>{{ object.funcionario }}</td>
+                                    </tr>
+
+                              {% endfor %}
+                              </thead>
+                          </table>
+                      </div>
+                    </div>
+                  {% else %}
+                    <p class="alert alert-warning">Nenhum campo registrado.</p>
+                  {% endif %}
+                </div>
+              </div>
+          </div>
+      </div>
+  </div>
+{% endblock %}

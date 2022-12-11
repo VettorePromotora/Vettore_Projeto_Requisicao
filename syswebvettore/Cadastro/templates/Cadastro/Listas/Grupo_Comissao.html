@@ -1,0 +1,98 @@
+{% extends 'paginas/modelo.html' %}
+{% load static %}
+
+
+{% block titulo %}
+<title>Produto</title>
+{% endblock %}
+
+{% block conteudo %}
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <p>
+                    <strong>GRUPOS DE COMISSIONAMENTO CADASTRADOS</strong>
+
+                </p>
+                <hr>
+
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4 mt-4">
+                    <div class="card-header py-3">
+<!--                        <h4  class="m-3 font-weight-bold ">{{ titulo }}</h4>-->
+                        <a href="{% url 'cadastrar-comissao' %}" class="btn btn-primary btn-sm mt-4">
+                            <i class="fas fa-plus"></i>
+                            Cadastrar Grupo
+                        </a>
+                        <a href="{% url 'exportar-dados' %}" class="btn btn-light btn-sm mt-4">
+                            <i class="fa fa-file-export"></i>
+                            Exportar
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr align="center" class="w-auto">
+                                        <th>COD</th>
+                                        <th>DESCRIÇÃO</th>
+                                        <th>PERCENTUAL</th>
+                                        <th>STATUS</th>
+                                        <th>OPÇÃO</th>
+                                    </tr>
+                                    {% for grupo in grupocomissao_list %}
+                                        <tr align="center" class="w-auto">
+                                            <td>{{ grupo.pk }}</td>
+                                            <td>{{ grupo.nome }}</td>
+                                            <td >{{ grupo.perc_comissao }}</td>
+                                            <td>{{ grupo.status_comissao }}</td>
+                                            <td>
+                                                <a href="{% url 'editar-comissao' grupo.pk %}" class="btn btn-warning btn-sm" title="Editar">
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                </a>
+
+                                                <a href="{% url 'excluir-comissao' grupo.pk %}" class="btn btn-danger btn-sm" title="Excluir">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="5">Nenhum grupo registrado.</td>
+                                    </tr>
+
+                                    {% endfor %}
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+</div>
+<!-- End of Page Wrapper -->
+
+{% endblock %}
+
+{% block scripts %}
+    <script>
+
+    </script>
+{% endblock %}

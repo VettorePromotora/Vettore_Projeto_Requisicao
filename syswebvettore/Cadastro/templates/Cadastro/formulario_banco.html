@@ -1,0 +1,107 @@
+{% extends 'paginas/modelo.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block titulo%}
+<title>{{ titulo }}</title>
+{% endblock %}
+
+{% block conteudo %}
+<div class="col-xl-6 mx-auto mt-4" id="cenario">
+    <div class="card shadow mb-4" id="formulariogeral">
+        <div class="card-header py-3">
+            <h2 align="center" class="mt-4">{{ titulo }}</h2>
+                <p align="center">
+                    Atenção ao alterar os dados registrados.
+                </p>
+        </div>
+        <div class="card-body">
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-2">
+                        {{ form.codigo|as_crispy_field }}
+                    </div>
+                    <div class="col">
+                        {{ form.nome|as_crispy_field }}
+                    </div>
+                    <div class="col-4">
+                        {{ form.perc_encargos|as_crispy_field }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-auto">
+                        {{ form.visivel|as_crispy_field }}
+                    </div>
+                    <div class="col-auto">
+                        {{ form.perc_desconto_saldo_devedor|as_crispy_field }}
+                    </div>
+                    <div class="col-auto">
+                        {{ form.visualizar_app|as_crispy_field }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-auto">
+                        {{ form.visivel_corretores|as_crispy_field }}
+                    </div>
+                    <div class="col-auto">
+                        {{ form.pagar_bonus_junto_comissao|as_crispy_field }}
+                    </div>
+
+                    <div class="col-auto">
+                        {{ form.responsavel|as_crispy_field }}
+                    </div>
+
+                </div>
+                {{ form_servico.management_form }}
+                <div class="inlineform ml-5 mr-5 mb-4">
+
+                    <legend style="border-bottom: 1px solid #e5e5e5" class="mt-4"><strong>Produtos</strong></legend>
+                    {% for formset3 in form_servico %}
+                        <div class="row">
+                            <div class="col-9">
+                                {{ formset3.produto|as_crispy_field }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <hr>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary mt-4 btn-block">{{ botao }}</button>
+                    <a href="#" onclick="history.go(-1)" class="btn btn-danger mt-1" style="whidth:100%">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts%}
+    <script src="{% static 'js/jquery.mask.min.js' %}"></script>
+    <script type="text/javascript">
+                $(function() {
+                    $('.inlineform .row').formset({
+                        prefix: '{{ formset.prefix }}',
+                        addText: '+ Novo',
+                        deleteText: 'Excluir',
+                        addCssClass: 'btn btn-primary',
+                        deleteCssClass: 'col-2 mt-4 btn btn-outline-sm-danger p-2',
+                    });
+                });
+        </script>
+        <script>
+
+                $("#formulario").click(()=>{
+                    $("#formulariogeral").clone().appendTo($("#cenario"))
+                });
+
+                function goBack(){
+                    document.EventListener('click'){
+                        window.history.back()
+                    }
+                }
+        </script>
+{% endblock %}
+

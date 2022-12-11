@@ -1,0 +1,51 @@
+{% extends 'paginas/modelo.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block titulo %}
+<title>Excluir</title>
+{% endblock %}
+
+
+{% block conteudo %}
+<h3 class="mt-4">{{ titulo }}:</h3>
+<hr>
+<div class="row">
+    <div class="col-md-8 mx-auto mt-4">
+        <div class="alert alert-danger">
+
+                Deseja excluir dos registros <strong>{{ object }}</strong>?
+            <hr>
+
+            <form action="" method="post">
+                {% csrf_token %}
+
+                {{ form|crispy }}
+
+                <a href="#" onclick="goBack()" class="btn btn-primary mt-4">Cancelar</a>
+                <button type="submit" class="btn btn-danger mt-4">Confirmar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts%}
+    <script>
+        function goBack() {
+            window.history.back()
+        }
+
+        const notificarSituacao = () => document.getElementById('excluindo')
+            .classList.add(
+                notificacaoSwal(document.title, "Deseja excluir este registro?", "warning")
+            )
+
+        document.getElementById("excluindo")
+          .addEventListener("click", notificarSituacao);
+    </script>
+{% endblock %}
+<!--<body>-->
+<!--<button onclick="goBack()">Go Back</button>-->
+<!--</body>-->

@@ -1,0 +1,175 @@
+{% extends 'paginas/modelo.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block titulo%}
+<title>{{ titulo }}</title>
+{% endblock %}
+
+{% block conteudo %}
+<div class="col-xl-8 mx-auto mt-4">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h2 align="center" class="mt-4">{{ titulo }}</h2>
+                <p align="center">
+                    Atenção ao alterar os dados registrados.
+                </p>
+        </div>
+        <div class="card-body">
+            <form action="" method="post" >
+                {% csrf_token %}
+<!--        -------------------------- -->
+                <div class="accordion" id="accordionExample">
+                  <div class="card">
+                    <div class="card-title" id="headingOne">
+                      <h5 class="mb-0">
+                        <button class="btn btn-ligth btn-block" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                          <strong>DADOS PESSOAIS</strong>
+                        </button>
+                      </h5>
+                    </div>
+
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                      <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                {{ form.nome_completo|as_crispy_field }}
+                            </div>
+                            <div class="col-4">
+                                {{ form.email|as_crispy_field }}
+                            </div>
+                            <div class="col-auto">
+                                {{ form.data_nasc|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                {{ form.cpf|as_crispy_field }}
+                            </div>
+                            <div class="col">
+                                {{ form.rg|as_crispy_field }}
+                            </div>
+                            <div class="col-2">
+                                {{ form.org_exped|as_crispy_field }}
+                            </div>
+                            <div class="col-auto">
+                                {{ form.data_emiss|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-5">
+                                {{ form.nome_mae|as_crispy_field }}
+                            </div>
+                            <div class="col-5">
+                                {{ form.nome_pai|as_crispy_field }}
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-auto">
+                                {{ form.tipo_contato|as_crispy_field }}
+                            </div>
+                            <div class="col-auto">
+                                {{ form.telefone|as_crispy_field }}
+                            </div>
+                            <div class="col-auto">
+                                {{ form.dt_cadastro|as_crispy_field }}
+                            </div>
+                            <div class="col-auto">
+                                {{ form.dt_inicio|as_crispy_field }}
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-title" id="headingTwo">
+                      <h5 class="mb-0">
+                        <button class="btn btn-light collapsed btn-block" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                          <strong>ENDEREÇO</strong>
+                        </button>
+                      </h5>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                      <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                {{ form.estado|as_crispy_field }}
+                            </div>
+                            <div class="col">
+                                {{ form.cidade|as_crispy_field }}
+                            </div>
+                            <div class="col-3">
+                                {{ form.bairro|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                {{ form.logradouro|as_crispy_field }}
+                            </div>
+                            <div class="col-auto">
+                                {{ form.numero_casa|as_crispy_field }}
+                            </div>
+                            <div class="col-auto">
+                                {{ form.complemento_casa|as_crispy_field }}
+                            </div>
+                            <div class="col-auto">
+                                {{ form.cep|as_crispy_field }}
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-title" id="headingThree">
+                      <h5 class="mb-0">
+                        <button class="btn btn-light collapsed btn-block" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                          <strong>ENDEREÇO</strong>
+                        </button>
+                      </h5>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                      <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                {{ form.reg_contratacoa|as_crispy_field }}
+                            </div>
+                        </div>
+                      </div>
+                  <div class="card">
+                    <div class="card-title" id="headingFour">
+                      <h5 class="mb-0">
+                        <button class="btn btn-ligth collapsed btn-block" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                          <strong>PERFIL</strong>
+                        </button>
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary mt-4 btn-block">Salvar</button>
+                    <a href="{% url 'listar-usuario' %}" class="btn btn-danger mt-1" style="whidth:100%">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="{% static 'js/jquery.mask.min.js' %}"></script>
+    <script>
+        $(document).ready(function(){
+            $("#id_cpf").mask("000.000.000-00");
+            $("#id_telefone").mask("(00) 0 0000-0000");
+        });
+
+    </script>
+{% endblock %}

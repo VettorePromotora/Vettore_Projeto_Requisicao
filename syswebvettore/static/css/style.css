@@ -1,0 +1,32 @@
+
+.swal-icon--succeess: before,
+.swal-icon--succeess: after,
+.swal-icon--succeess__hide-corners{
+    background: none !important;
+}
+
+.swal-icon--succeess{
+    border-color: #007bff;
+}
+
+.swal-icon--succeess__line{
+    background-color: #007bff;
+}
+
+.swal-button{
+    padding: 7px 19px;
+    border-radius: 5px;
+    background-color: #007bff;
+    font-size: 12px;
+    border: 1px solid #007bff;
+}
+
+.swal-button:focus{
+    box-shadow: none;
+}
+
+.swal-button:not([disabled]):hover{
+    background: transparent;
+    color: #111;
+    border: 1px solid #007bff;
+}

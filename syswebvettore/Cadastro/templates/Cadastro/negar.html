@@ -1,0 +1,53 @@
+{% extends 'paginas/modelo.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block titulo %}
+<title>Rejeitar</title>
+{% endblock %}
+
+
+{% block conteudo %}
+<h3 class="mt-4">{{ titulo }}:</h3>
+<hr>
+<div class="row">
+    <div class="col-md-8 mx-auto mt-4">
+        <div class="alert alert-danger">
+            <strong>Deseja rejeitar a solicitação:</strong>
+            <br>
+            {{ object }}
+            <hr>
+
+            <form action="" method="post">
+                <div id="dados">
+                    {% csrf_token %}
+
+                    {{ form|crispy }}
+                </div>
+
+                <a href="listar-solicitacaoadmin" class="btn btn-primary mt-4 ">Cancelar</a>
+                <button type="submit" class="btn btn-danger mt-4">Confirmar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script>
+
+        var form = document.getElementById("id_status");
+        var dados = document.getElementById("dados");
+        $(dados).hide();
+        console.log(form.value);
+
+        function setTipo(){
+            form.value = "Rejeitado"
+            console.log(form.value)
+            }
+
+        setTipo("Rejeitado")
+
+    </script>
+{% endblock %}

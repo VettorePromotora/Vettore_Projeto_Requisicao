@@ -1,0 +1,86 @@
+{% extends 'paginas/modelo.html' %}
+{% load static %}
+
+{% block titulo %}
+<title>Usuarios</title>
+{% endblock %}
+
+{% block conteudo %}
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <p class="mb-4">Área para adicionar informações instrutivas. </p>
+
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h2 align="center">Lista de Usuários do Sistema</h2>
+<!--                        <h6 class="m-0 font-weight-bold text-primary">{{ titulo }}</h6>-->
+                        <a href="{% url 'registrar' %}" class="btn btn-primary btn-sm mt-4">
+                            <i class="fas fa-plus"></i>
+                            Cadastrar usuário
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>NOME COMPLETO</th>
+                                    <th>CPF</th>
+                                    <th>TELEFONE</th>
+                                    <th>USUÁRIO</th>
+                                    <th>OPÇÕES</th>
+
+                                </tr>
+
+                                {% for obj in object_list %}
+                                <tr>
+                                    <td>{{ obj.pk }}</td>
+                                    <td>{{ obj.nome_completo }}</td>
+                                    <td>{{ obj.cpf }}</td>
+                                    <td>{{ obj.telefone }}</td>
+                                    <td>{{ obj.usuario }}</td>
+
+                                    <td>
+                                        <a href="{% url 'editar-comissao' obj.pk %}" class="btn btn-warning btn-sm" title="Editar">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </a>
+
+                                        <a href="{% url 'excluir-comissao' obj.pk %}" class="btn btn-danger btn-sm" title="Excluir">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    </td>
+
+                                </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="8">Nenhum usuário registrado.</td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+</div>
+<!-- End of Page Wrapper -->
+{% endblock %}

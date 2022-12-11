@@ -1,0 +1,37 @@
+{% extends 'paginas/modelo.html' %}
+{% load static %}
+
+{% block titulo %}
+<title>Home</title>
+{% endblock %}
+
+{% block conteudo %}
+
+    <h3> Conteúdo da pagina inicial</h3>
+    {% if user.perfil.nome_completo %}
+    <strong>{{ user.perfil.nome_completo }}</strong> seja bem vindo.
+
+    {{ request.user.auth }}
+
+    <br>
+    {% else %}
+        <p>Você precisa completar o seu cadastro. Acesse o seu perfil.</p>
+
+    {% endif %}
+    <div class="row">
+        {% for local in local_list %}
+                <div class="col-sm-4">
+                    <div class="card" style="width: 22rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ local.nome }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ local.descricao }}</h6>
+                            <hr>
+                            <a href="{% url 'listar-produtos' %}" class="btn btn-warning">Estoque</a>
+                        </div>
+                    </div>
+                </div>
+
+        {% endfor %}
+    </div>
+
+{% endblock %}
