@@ -1,7 +1,0 @@
-Arquivo de testes.
-
-
-Usuário - Cliente:
-
-				USERNAME: Vettore1
-				PASSWORD: 147258@#
